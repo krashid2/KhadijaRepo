@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deploy
+  labels:
+    name: postgres-deploy
+    app: python-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: postgres-pod
+      app: python-app
+  template:
+    metadata:
+      name: postgres-pod
+      labels:
+        name: postgres-pod
+        app: python-app
+    spec:
+      containers:
+      - name: postgres
+        image: registry.hub.docker.com/caedus41/oreilly-cloud-engineer-postgres
+        ports:
+        - containerPort: 5432
+        env:
+          - name: POSTGRES_USER
+            value: "oreilly"
+          - name: POSTGRES_PASSWORD
+            value: "hunter2"

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app
+  template:
+    metadata:
+      labels:
+        app: python-app
+    spec:
+      containers:
+      - name: python-app
+        image: registry.hub.docker.com/caedus41/oreilly-cloud-engineer-python-api
+        ports:
+        - containerPort: 5000
+        env:
+        - name: DATABASE_HOST
+          value: "db"
+        - name: DATABASE_USER
+          value: "oreilly"
+        - name: DATABASE_PASSWORD
+          value: "hunter2"
+        - name: DATABASE_NAME
+          value: "public"
